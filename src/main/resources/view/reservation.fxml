@@ -16,7 +16,7 @@
       <ComboBox fx:id="StIdCombo" layoutX="251.0" layoutY="92.0" prefHeight="25.0" prefWidth="158.0" promptText="Student Id" />
       <ComboBox fx:id="roomIdCombo" layoutX="428.0" layoutY="92.0" prefHeight="25.0" prefWidth="158.0" promptText="Room Id" />
       <DatePicker fx:id="datePiker" layoutX="250.0" layoutY="148.0" prefHeight="25.0" prefWidth="158.0" promptText="Date" />
-      <TableView fx:id="reservationTable" layoutX="-1.0" layoutY="245.0" prefHeight="158.0" prefWidth="600.0">
+      <TableView fx:id="reservationTable" layoutX="-1.0" layoutY="245.0" onMouseClicked="#ReservationOnMouseClick" prefHeight="158.0" prefWidth="600.0">
         <columns>
           <TableColumn fx:id="reIdColum" prefWidth="116.0" text="Reservation Id" />
           <TableColumn fx:id="stIdColum" prefWidth="121.0" text="Student Id" />
@@ -35,5 +35,6 @@
       <Button layoutX="472.0" layoutY="210.0" mnemonicParsing="false" onAction="#UpdateOnAction" text="Update" />
       <Button layoutX="538.0" layoutY="210.0" mnemonicParsing="false" onAction="#DeleteOnAction" text="Delete" />
       <Button layoutX="4.0" layoutY="410.0" mnemonicParsing="false" onAction="#BackOnAction" prefHeight="25.0" prefWidth="51.0" text="Back" />
+      <Button layoutX="501.0" layoutY="36.0" mnemonicParsing="false" onAction="#NotPaidOnAction" prefHeight="25.0" prefWidth="81.0" text="Not Paid" />
    </children>
 </AnchorPane>

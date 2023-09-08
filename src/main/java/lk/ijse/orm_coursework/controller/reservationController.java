@@ -2,6 +2,7 @@ package lk.ijse.orm_coursework.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -16,11 +17,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lk.ijse.orm_coursework.bo.BoFactory;
 import lk.ijse.orm_coursework.bo.custom.ReservationBo;
+import lk.ijse.orm_coursework.controller.util.AlertController;
+import lk.ijse.orm_coursework.controller.util.ValidationController;
 import lk.ijse.orm_coursework.dto.ReservationDto;
 import lk.ijse.orm_coursework.view.tdm.ReservationTm;
+import lk.ijse.orm_coursework.view.tdm.StudentTm;
 
 public class reservationController implements Initializable {
 
@@ -67,13 +72,12 @@ public class reservationController implements Initializable {
     private Scene scene;
     private Parent root;
 
-    ReservationBo reservationBo= BoFactory.getBoFactory().getBo(BoFactory.BoType.RESERVATION_BO);
+    ReservationBo reservationBo = BoFactory.getBoFactory().getBo(BoFactory.BoType.RESERVATION_BO);
 
     @FXML
     void DeleteOnAction(ActionEvent event) {
 
-        ReservationDto reservationDto=new ReservationDto();
-        reservationDto.setReservationId(resIdText.getText());
+        ReservationDto reservationDto = getReservation();
         reservationBo.deleteReservation(reservationDto);
 
         getAll();
@@ -82,21 +86,58 @@ public class reservationController implements Initializable {
 
     @FXML
     void SaveOnAction(ActionEvent event) {
-        ReservationDto reservationDto=getReservation();
-        reservationBo.saveReservation(reservationDto);
-   getAll();
 
+        if (ValidationController.reservationIdCheck(resIdText.getText())) {
+
+            try {
+
+
+                ReservationDto reservationDto = getReservation();
+                reservationBo.saveReservation(reservationDto);
+                AlertController.confirmmessage("Save successFully");
+                getAll();
+
+                resIdText.setText("");
+                StIdCombo.setValue(null);
+                roomIdCombo.setValue(null);
+                datePiker.setValue(null);
+                statusCombo.setValue(null);
+
+
+            } catch (Exception e) {
+                AlertController.errormessage("Duplicate Id");
+            }
+
+        } else {
+
+            AlertController.errormessage("Invalied Id");
+        }
     }
 
     @FXML
     void UpdateOnAction(ActionEvent event) {
 
-        ReservationDto reservationDto=getReservation();
-        reservationBo.updateReservation(reservationDto);
+        if (ValidationController.reservationIdCheck(resIdText.getText())) {
 
-        getAll();
+            ReservationDto reservationDto = getReservation();
+            reservationBo.updateReservation(reservationDto);
+            AlertController.confirmmessage("Update successFully");
+
+            getAll();
+            resIdText.setText("");
+            StIdCombo.setValue(null);
+            roomIdCombo.setValue(null);
+            datePiker.setValue(null);
+            statusCombo.setValue(null);
+
+
+        } else {
+
+            AlertController.errormessage("Invalied Id");
+        }
 
     }
+
     public void loadStIds() {
         try {
             ObservableList<String> obList = FXCollections.observableArrayList();
@@ -126,20 +167,20 @@ public class reservationController implements Initializable {
             System.out.println(e);
             e.printStackTrace();
             System.out.println("loading ids to cmbStudentId failed");
-}
-}
+        }
+    }
 
 
-    public ReservationDto getReservation(){
+    public ReservationDto getReservation() {
 
-        ReservationDto reservationDto=new ReservationDto();
+        ReservationDto reservationDto = new ReservationDto();
         reservationDto.setReservationId(resIdText.getText());
         reservationDto.setDate(datePiker.getValue());
         reservationDto.setStatus(String.valueOf(statusCombo.getValue()));
         reservationDto.setRoomId(String.valueOf(roomIdCombo.getValue()));
         reservationDto.setStudentId(String.valueOf(StIdCombo.getValue()));
 
-       return reservationDto;
+        return reservationDto;
     }
 
     public void BackOnAction(ActionEvent event) throws IOException {
@@ -153,21 +194,21 @@ public class reservationController implements Initializable {
 
     }
 
-    private void getAll(){
+    private void getAll() {
 
 
-        try{
-            ObservableList<ReservationDto> all=reservationBo.getDetailsToTableView();
-            ObservableList<ReservationTm>reservationData= FXCollections.observableArrayList();
+        try {
+            ObservableList<ReservationDto> all = reservationBo.getDetailsToTableView();
+            ObservableList<ReservationTm> reservationData = FXCollections.observableArrayList();
 
-            for(ReservationDto r : all) {
-                reservationData.add(new ReservationTm(r.getReservationId(),r.getDate(),r.getStatus(),r.getStudentId(),r.getRoomId()
+            for (ReservationDto r : all) {
+                reservationData.add(new ReservationTm(r.getReservationId(), r.getDate(), r.getStatus(), r.getStudentId(), r.getRoomId()
 
                 ));
                 reservationTable.setItems(reservationData);
             }
 
-        }catch (Exception throwables){
+        } catch (Exception throwables) {
             throwables.printStackTrace();
         }
     }
@@ -183,8 +224,6 @@ public class reservationController implements Initializable {
     }
 
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -196,6 +235,39 @@ public class reservationController implements Initializable {
         loadRoomTypeIds();
 
         statusCombo.getItems().addAll("PAID", "NOT PAID");
+
+    }
+
+    public void ReservationOnMouseClick(MouseEvent mouseEvent) {
+
+        try {
+            TablePosition pos = reservationTable.getSelectionModel().getSelectedCells().get(0);
+            int row = pos.getRow();
+
+            ObservableList<TableColumn<ReservationTm, ?>> columns = reservationTable.getColumns();
+            resIdText.setText(columns.get(0).getCellData(row).toString());
+            StIdCombo.setValue(columns.get(1).getCellData(row).toString());
+            roomIdCombo.setValue(columns.get(2).getCellData(row).toString());
+            datePiker.setValue(LocalDate.parse(columns.get(3).getCellData(row).toString()));
+            statusCombo.setValue(columns.get(4).getCellData(row).toString());
+
+
+        } catch (Exception e) {
+            AlertController.errormessage("Empty Row");
+        }
+    }
+
+    public void NotPaidOnAction(ActionEvent event) {
+
+        Stage stage = new Stage();
+        stage.resizableProperty().setValue(false);
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/notPaidStudent.fxml"))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.centerOnScreen();
+        stage.show();
 
     }
 }

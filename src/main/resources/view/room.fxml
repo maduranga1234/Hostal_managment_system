@@ -22,7 +22,7 @@
             <Font name="Book Antiqua" size="24.0" />
          </font>
       </Label>
-      <TableView fx:id="roomTable" layoutX="38.0" layoutY="286.0" prefHeight="209.0" prefWidth="683.0">
+      <TableView fx:id="roomTable" layoutX="38.0" layoutY="286.0" onMouseClicked="#RoomOnMouseClicked" prefHeight="209.0" prefWidth="683.0">
          <columns>
             <TableColumn fx:id="idCol" minWidth="15.0" prefWidth="142.0" text="Room Id" />
             <TableColumn fx:id="typeCol" prefWidth="142.0" text="Room Type" />

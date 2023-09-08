@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class ValidationController {
 
     public static boolean contactCheck(String contact) {
-        String contactRegex = "^(?:7|0|(?:\\\\\\\\+94))[0-9]{9,12}$";
+        String contactRegex = "^(?:7|0|(?:\\\\\\\\+94))[0-9]{9,10}$";
         Pattern pattern = Pattern.compile(contactRegex);
         Matcher matcher = pattern.matcher(contact);
         return matcher.matches();
@@ -33,7 +33,7 @@ public class ValidationController {
     }
 
     public static boolean customerNameValidate(String custName) {
-        String customerRegex = "^[A-z\\s]{4,15}$";
+        String customerRegex = "^[A-z\\s]{2,15}$";
         Pattern pattern = Pattern.compile(customerRegex);
         Matcher matcher = pattern.matcher(custName);
         return matcher.matches();
@@ -43,6 +43,27 @@ public class ValidationController {
         Pattern idPattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
 
         boolean matches = idPattern.matcher(password).matches();
+        if (matches) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public  static boolean salary(String salary) {
+        Pattern idPattern = Pattern.compile("^[1-9][0-9]*(.[0-9]{2})?$");
+        boolean matches = idPattern.matcher(salary).matches();
+        if (matches) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean DateOfBirth (String nic){
+        Pattern idPattern = Pattern.compile("^([0-9]{4})-([0-9]{2})-([0-9]{2})$");
+
+        boolean matches = idPattern.matcher(nic).matches();
         if (matches) {
             return true;
         } else {

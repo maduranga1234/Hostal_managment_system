@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lk.ijse.orm_coursework.bo.BoFactory;
@@ -27,7 +28,8 @@ public class PasswordChangeController {
     private TextField userNameTxt;
 
     @FXML
-    private TextField passwordTxt;
+    private PasswordField passwordTxt;
+
 
     @FXML
     private Stage stage;

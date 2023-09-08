@@ -89,7 +89,7 @@ public class ReservationBoImpl implements ReservationBo {
         Transaction transaction = session.beginTransaction();
         try {
             reservationDao.setSession(session);
-            reservationDao.update(reservationDto.toEntity());
+            reservationDao.delete(reservationDto.toEntity());
             updateAvailableRooms(reservationDto);
             transaction.commit();
             session.close();

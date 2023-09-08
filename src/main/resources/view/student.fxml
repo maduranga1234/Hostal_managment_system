@@ -24,7 +24,7 @@
       <Button layoutX="581.0" layoutY="261.0" mnemonicParsing="false" onAction="#studentUpdateOnAction" prefHeight="11.0" prefWidth="60.0" text="Update" />
       <Button layoutX="651.0" layoutY="262.0" mnemonicParsing="false" onAction="#studentDeletOnAction" prefHeight="25.0" prefWidth="60.0" text="Delete" />
       <TextField fx:id="genderTxt" layoutX="516.0" layoutY="215.0" prefHeight="25.0" prefWidth="198.0" promptText="Gender" />
-      <TableView fx:id="studentTable" layoutX="4.0" layoutY="296.0" prefHeight="200.0" prefWidth="740.0">
+      <TableView fx:id="studentTable" layoutX="4.0" layoutY="296.0" onMouseClicked="#StudentOnMouseClicked" prefHeight="200.0" prefWidth="740.0">
          <columns>
             <TableColumn fx:id="idCol" prefWidth="75.0" text="Student Id" />
             <TableColumn fx:id="nameCol" prefWidth="170.0" text="Student Name" />

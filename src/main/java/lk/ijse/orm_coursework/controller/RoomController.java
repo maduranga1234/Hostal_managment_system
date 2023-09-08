@@ -14,9 +14,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lk.ijse.orm_coursework.bo.BoFactory;
 import lk.ijse.orm_coursework.bo.custom.RoomBo;
@@ -90,11 +92,44 @@ public class RoomController implements Initializable {
 
 
         if(ValidationController.roomIdCheck(idTxt.getText())) {
+            if(ValidationController.customerNameValidate(typeTxt.getText())) {
+                if(ValidationController.salary(KeyMoneyTxt.getText())) {
+                    if(ValidationController.salary(qtyTxt.getText())) {
+                        if(ValidationController.salary(maxNumberTxt.getText())) {
+                            try {
+                            RoomDto roomDto = getRoom();
+                            roomBo.saveRoom(roomDto);
 
-            RoomDto roomDto = getRoom();
-            roomBo.saveRoom(roomDto);
+                            AlertController.confirmmessage("Save successFully");
 
-            getAll();
+                            getAll();
+
+                            idTxt.setText("");
+                            typeTxt.setText("");
+                            KeyMoneyTxt.setText("");
+                            qtyTxt.setText("");
+                            maxNumberTxt.setText("");
+
+                        }catch (Exception e){
+                            AlertController.errormessage("Duplicate Id");
+                        }
+                        }else {
+
+                            AlertController.errormessage("Invalied Number");
+                        }
+
+                    }else{
+                        AlertController.errormessage("Invalied Qty");
+                    }
+
+                }else {
+                    AlertController.errormessage("Invalied Key Money");
+                }
+
+            }else{
+                AlertController.errormessage("Invalied Room Type");
+
+            }
         }else {
             AlertController.errormessage("Invalied Id");
         }
@@ -104,10 +139,47 @@ public class RoomController implements Initializable {
     @FXML
     void roomUpdateOnAction(ActionEvent event) {
 
-        RoomDto roomDto=getRoom();
-        roomBo.updateRoom(roomDto);
+        if(ValidationController.roomIdCheck(idTxt.getText())) {
+            if(ValidationController.customerNameValidate(typeTxt.getText())) {
+                if(ValidationController.salary(KeyMoneyTxt.getText())) {
+                    if(ValidationController.salary(qtyTxt.getText())) {
+                        if(ValidationController.salary(maxNumberTxt.getText())) {
 
-        getAll();
+
+
+                                RoomDto roomDto = getRoom();
+                                roomBo.updateRoom(roomDto);
+
+                            AlertController.confirmmessage("Update successFully");
+
+                                getAll();
+                                idTxt.setText("");
+                                typeTxt.setText("");
+                                KeyMoneyTxt.setText("");
+                                qtyTxt.setText("");
+                                maxNumberTxt.setText("");
+
+
+                        }else {
+
+                            AlertController.errormessage("Invalied Number");
+                        }
+
+                    }else{
+                        AlertController.errormessage("Invalied Qty");
+                    }
+
+                }else {
+                    AlertController.errormessage("Invalied Key Money");
+                }
+
+            }else{
+                AlertController.errormessage("Invalied Room Type");
+
+            }
+        }else {
+            AlertController.errormessage("Invalied Id");
+        }
 
     }
 
@@ -182,5 +254,24 @@ public class RoomController implements Initializable {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+    }
+
+    public void RoomOnMouseClicked(MouseEvent mouseEvent) {
+
+try{
+        TablePosition pos = roomTable.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+
+        ObservableList<TableColumn<RoomTm, ?>> columns = roomTable.getColumns();
+        idTxt.setText(columns.get(0).getCellData(row).toString());
+        typeTxt.setText(columns.get(1).getCellData(row).toString());
+        KeyMoneyTxt.setText(columns.get(2).getCellData(row).toString());
+        qtyTxt.setText(columns.get(3).getCellData(row).toString());
+        maxNumberTxt.setText(columns.get(4).getCellData(row).toString());
+
+
+    }catch (Exception e){
+        AlertController.errormessage("Empty Row");
+    }
     }
 }

@@ -15,7 +15,7 @@ public class BoFactory {
     }
 
     public enum BoType{
-        ROOM_BO,STUDENT_BO,SING_UP,PASSWORD_CHANGE_BO,LOGING_BO,RESERVATION_BO
+        ROOM_BO,STUDENT_BO,SING_UP,PASSWORD_CHANGE_BO,LOGING_BO,RESERVATION_BO,NOT_PAID
     }
 
     public <T extends SuperBo> T getBo(BoType boType){
@@ -37,6 +37,9 @@ public class BoFactory {
 
             case RESERVATION_BO:
                 return (T) new ReservationBoImpl();
+
+            case NOT_PAID:
+                return (T) new NotPaidBoImpl();
 
             default:
                 return null;

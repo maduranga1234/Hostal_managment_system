@@ -7,10 +7,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lk.ijse.orm_coursework.bo.BoFactory;
 import lk.ijse.orm_coursework.bo.custom.LogingBo;
@@ -27,7 +30,19 @@ public class LogingController {
     private TextField userNameText;
 
     @FXML
-    private TextField passWordText;
+    private PasswordField passWordText;
+
+
+
+    @FXML
+    private Group hideGroup;
+
+
+    @FXML
+    private Group showGroup;
+
+    @FXML
+    private TextField passWordShowFiled;
 
 
     @FXML
@@ -77,4 +92,24 @@ public class LogingController {
     }
 
 
+    public void showEnterd(MouseEvent mouseEvent) {
+    }
+
+    public void hideEnted(MouseEvent mouseEvent) {
+        passWordShowFiled.setText(passWordText.getText());
+        showGroup.setVisible(true);
+        hideGroup.setVisible(false);
+
+
+    }
+
+    public void showExit(MouseEvent mouseEvent) {
+
+        hideGroup.setVisible(true);
+        showGroup.setVisible(false);
+    }
+
+    public void hideExit(MouseEvent mouseEvent) {
+
+    }
 }
