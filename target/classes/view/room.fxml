@@ -5,33 +5,39 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="532.0" prefWidth="747.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm_coursework.controller.RoomController">
+<AnchorPane prefHeight="503.0" prefWidth="747.0" style="-fx-background-color: #1dc4e0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm_coursework.controller.RoomController">
    <children>
-      <TextField fx:id="idTxt" layoutX="35.0" layoutY="112.0" prefHeight="25.0" prefWidth="190.0" promptText="Room Id" />
-      <TextField fx:id="typeTxt" layoutX="310.0" layoutY="114.0" prefHeight="25.0" prefWidth="411.0" promptText="Room Type" />
-      <TextField fx:id="KeyMoneyTxt" layoutX="311.0" layoutY="165.0" prefHeight="25.0" prefWidth="198.0" promptText="Key Money" />
-      <TextField fx:id="qtyTxt" layoutX="521.0" layoutY="165.0" prefHeight="25.0" prefWidth="198.0" promptText="Qty" />
-      <Button layoutX="515.0" layoutY="235.0" mnemonicParsing="false" onAction="#roomSaveOnAction" prefHeight="25.0" prefWidth="60.0" text="Save" />
-      <Button layoutX="586.0" layoutY="235.0" mnemonicParsing="false" onAction="#roomUpdateOnAction" prefHeight="11.0" prefWidth="60.0" text="Update" />
-      <Button layoutX="656.0" layoutY="236.0" mnemonicParsing="false" onAction="#roomDeletOnAction" prefHeight="25.0" prefWidth="60.0" text="Delete" />
-      <Label layoutX="182.0" layoutY="16.0" prefHeight="44.0" prefWidth="292.0" text="Room Manegment Form">
+      <TextField fx:id="idTxt" layoutX="6.0" layoutY="112.0" prefHeight="25.0" prefWidth="190.0" promptText="Room Id" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <TextField fx:id="typeTxt" layoutX="330.0" layoutY="114.0" prefHeight="25.0" prefWidth="411.0" promptText="Room Type" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <TextField fx:id="KeyMoneyTxt" layoutX="331.0" layoutY="159.0" prefHeight="25.0" prefWidth="198.0" promptText="Key Money" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <TextField fx:id="qtyTxt" layoutX="541.0" layoutY="159.0" prefHeight="25.0" prefWidth="198.0" promptText="Qty" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <Button layoutX="514.0" layoutY="241.0" mnemonicParsing="false" onAction="#roomSaveOnAction" prefHeight="25.0" prefWidth="71.0" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-color: black; -fx-background-radius: 8px;" text="Save" textFill="WHITE" />
+      <Button layoutX="592.0" layoutY="241.0" mnemonicParsing="false" onAction="#roomUpdateOnAction" prefHeight="25.0" prefWidth="71.0" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-color: black; -fx-background-radius: 8px;" text="Update" textFill="WHITE" />
+      <Button layoutX="667.0" layoutY="241.0" mnemonicParsing="false" onAction="#roomDeletOnAction" prefHeight="25.0" prefWidth="71.0" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-color: black; -fx-background-radius: 8px;" text="Delete" textFill="WHITE" />
+      <Label layoutX="230.0" layoutY="20.0" prefHeight="44.0" prefWidth="326.0" text="Room Manegment Form" underline="true">
          <font>
-            <Font name="Book Antiqua" size="24.0" />
+            <Font name="Book Antiqua" size="30.0" />
          </font>
       </Label>
-      <TableView fx:id="roomTable" layoutX="38.0" layoutY="286.0" onMouseClicked="#RoomOnMouseClicked" prefHeight="209.0" prefWidth="683.0">
+      <TableView fx:id="roomTable" layoutX="5.0" layoutY="286.0" onMouseClicked="#RoomOnMouseClicked" prefHeight="209.0" prefWidth="738.0">
          <columns>
-            <TableColumn fx:id="idCol" minWidth="15.0" prefWidth="142.0" text="Room Id" />
-            <TableColumn fx:id="typeCol" prefWidth="142.0" text="Room Type" />
-            <TableColumn fx:id="keyMoneyCol" prefWidth="114.0" text="Key Money" />
-            <TableColumn fx:id="QtyCol" prefWidth="109.0" text="Qty" />
-            <TableColumn fx:id="maxNumberCol" prefWidth="175.0" text="Max Number  Person In Room" />
+            <TableColumn fx:id="idCol" minWidth="15.0" prefWidth="153.0" text="Room Id" />
+            <TableColumn fx:id="typeCol" prefWidth="162.0" text="Room Type" />
+            <TableColumn fx:id="keyMoneyCol" prefWidth="112.0" text="Key Money" />
+            <TableColumn fx:id="QtyCol" prefWidth="117.0" text="Qty" />
+            <TableColumn fx:id="maxNumberCol" prefWidth="192.0" text="Max Number  Person In Room" />
          </columns>
       </TableView>
-      <Button layoutX="662.0" layoutY="500.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="25.0" prefWidth="60.0" text="Back" />
-      <TextField fx:id="maxNumberTxt" layoutX="310.0" layoutY="201.0" prefHeight="25.0" prefWidth="411.0" promptText="Max number Person Is Room" />
+      <TextField fx:id="maxNumberTxt" layoutX="330.0" layoutY="201.0" prefHeight="25.0" prefWidth="411.0" promptText="Max number Person Is Room" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <ImageView fitHeight="34.0" fitWidth="33.0" layoutX="715.0" onMouseClicked="#backOnAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/images/close.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

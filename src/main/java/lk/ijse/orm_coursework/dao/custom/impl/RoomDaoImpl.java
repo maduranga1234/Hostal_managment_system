@@ -2,7 +2,6 @@ package lk.ijse.orm_coursework.dao.custom.impl;
 
 import lk.ijse.orm_coursework.entity.Room;
 import lk.ijse.orm_coursework.dao.custom.RoomDao;
-import lk.ijse.orm_coursework.entity.Student;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -35,6 +34,15 @@ public class RoomDaoImpl implements RoomDao {
         List list = query.list();
         //session.close();
     return list;
+    }
+
+    @Override
+    public int getAvlRooms(String roomId) {
+        String sql="SELECT available_room FROM room WHERE room_id=:id ";
+        Query query = session.createNativeQuery(sql);
+        query.setParameter("id",roomId);
+        int count= (int) query.getSingleResult();
+        return count;
     }
 
 

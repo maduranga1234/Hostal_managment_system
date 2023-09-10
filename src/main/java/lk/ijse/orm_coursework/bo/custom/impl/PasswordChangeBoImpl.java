@@ -2,6 +2,7 @@ package lk.ijse.orm_coursework.bo.custom.impl;
 
 import lk.ijse.orm_coursework.bo.custom.PasswordChangeBo;
 import lk.ijse.orm_coursework.config.SessionFactoryConfig;
+import lk.ijse.orm_coursework.controller.util.AlertController;
 import lk.ijse.orm_coursework.dao.DaoFactory;
 import lk.ijse.orm_coursework.dao.custom.UserDao;
 import lk.ijse.orm_coursework.dto.UserDto;
@@ -28,8 +29,8 @@ public class PasswordChangeBoImpl implements PasswordChangeBo {
         } catch (Exception e) {
             transaction.rollback();
             session.close();
-            e.printStackTrace();
             return false;
+
         }
     }
 

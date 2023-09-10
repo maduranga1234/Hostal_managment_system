@@ -1,14 +1,21 @@
 package lk.ijse.orm_coursework.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import lk.ijse.orm_coursework.bo.BoFactory;
 import lk.ijse.orm_coursework.bo.custom.NotPaidBo;
 import lk.ijse.orm_coursework.projection.CustomProjection;
@@ -39,6 +46,11 @@ public class NotPaidStudentController {
 
     @FXML
     private TableColumn<?, ?> KeyMoneyCol;
+
+    @FXML
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     NotPaidBo notPaidBo= BoFactory.getBoFactory().getBo(BoFactory.BoType.NOT_PAID);
 
@@ -91,6 +103,14 @@ public class NotPaidStudentController {
     }
 
 
+    public void backOnAction(MouseEvent mouseEvent) throws IOException {
 
+        Parent root = FXMLLoader.load(getClass().getResource("/view/reservation.fxml"));
+        stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
 }
 

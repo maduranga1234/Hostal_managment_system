@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDaoImpl implements StudentDao {
@@ -47,5 +48,16 @@ public class StudentDaoImpl implements StudentDao {
         Query query = session.createQuery(hql);
         List<Student> studentList = query.list();
         return studentList;
+    }
+
+    @Override
+    public Student getStudentDetail(String studentId) {
+        String sql = "SELECT s FROM Student s WHERE s.id = :student_id";
+
+        Query query = session.createQuery(sql);
+        query.setParameter("student_id", studentId);
+        Student student= (Student) query.getSingleResult();
+
+        return student;
     }
 }

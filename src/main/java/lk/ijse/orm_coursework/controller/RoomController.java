@@ -83,7 +83,15 @@ public class RoomController implements Initializable {
        deletDto.setRoomId(idTxt.getText());
        roomBo.deleteRoom(deletDto);
 
-       getAll();
+        idTxt.setText("");
+        typeTxt.setText("");
+        KeyMoneyTxt.setText("");
+        qtyTxt.setText("");
+        maxNumberTxt.setText("");
+
+        getAll();
+        AlertController.confirmmessage("Delete successFully");
+
     }
 
     @FXML
@@ -245,16 +253,7 @@ public class RoomController implements Initializable {
       getAll();
     }
 
-    public void backOnAction(ActionEvent event) throws IOException {
 
-
-        Parent root = FXMLLoader.load(getClass().getResource("/view/dashBord.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
-    }
 
     public void RoomOnMouseClicked(MouseEvent mouseEvent) {
 
@@ -273,5 +272,16 @@ try{
     }catch (Exception e){
         AlertController.errormessage("Empty Row");
     }
+    }
+
+
+    public void backOnAction(MouseEvent mouseEvent) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/dashBord.fxml"));
+        stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
 }

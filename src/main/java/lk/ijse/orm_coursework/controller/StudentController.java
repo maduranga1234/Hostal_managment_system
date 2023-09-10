@@ -87,7 +87,18 @@ public class StudentController implements Initializable {
         deletDto.setId(idTxt.getText());
         studentBo.deleteStudent(deletDto);
 
+        idTxt.setText("");
+        nameTxt.setText("");
+        addressTxt.setText("");
+        contactTxt.setText("");
+        dobTxt.setValue(null);
+        genderTxt.setText("");
+
         getAll();
+        AlertController.confirmmessage("Delete successFully");
+
+
+
 
     }
 
@@ -244,16 +255,7 @@ public class StudentController implements Initializable {
 
     }
 
-    public void BackOnAction(ActionEvent event) throws IOException {
 
-
-        Parent root = FXMLLoader.load(getClass().getResource("/view/dashBord.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
-    }
 
     public void StudentOnMouseClicked(MouseEvent mouseEvent) {
 
@@ -274,5 +276,15 @@ public class StudentController implements Initializable {
         } catch (Exception e) {
             AlertController.errormessage("Empty Row");
         }
+    }
+
+    public void BackOnAction(MouseEvent mouseEvent) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/dashBord.fxml"));
+        stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
     }
 }

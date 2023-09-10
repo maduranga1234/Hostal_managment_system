@@ -41,10 +41,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public String checkPassword(String username) {
 
-            String sql = "SELECT password FROM user WHERE user_name= :un ";
-            Query query = session.createNativeQuery(sql);
-            query.setParameter("un", username);
-            String pass = (String) query.getSingleResult();
-            return pass;
+    String sql = "SELECT password FROM user WHERE user_name= :un ";
+    Query query = session.createNativeQuery(sql);
+    query.setParameter("un", username);
+    String pass = (String) query.getSingleResult();
+    return pass;
+
     }
 }

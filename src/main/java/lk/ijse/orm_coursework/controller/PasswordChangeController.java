@@ -11,9 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lk.ijse.orm_coursework.bo.BoFactory;
 import lk.ijse.orm_coursework.bo.custom.PasswordChangeBo;
+import lk.ijse.orm_coursework.controller.util.AlertController;
+import lk.ijse.orm_coursework.controller.util.ValidationController;
 import lk.ijse.orm_coursework.dto.UserDto;
 
 public class PasswordChangeController {
@@ -41,10 +44,43 @@ public class PasswordChangeController {
 
     @FXML
     void changeOnAction(ActionEvent event) {
-        UserDto userDto=getUser();
-        passwordChangeBo.updateUser(userDto);
 
 
+        if(ValidationController.customerNameValidate(userNameTxt.getText())){
+            if(ValidationController.Password(passwordTxt.getText())) {
+
+
+                try {
+
+
+                    UserDto userDto = getUser();
+                  boolean getData=passwordChangeBo.updateUser(userDto);
+
+                  if(getData){
+
+
+                      AlertController.confirmmessage("Password Change Successful");
+                      userNameTxt.setText("");
+                      passwordTxt.setText("");
+                  }else{
+                      AlertController.errormessage("Invalied Username");
+                  }
+
+
+                }catch (Exception e){
+                    AlertController.errormessage("Invalied Detail");
+                }
+
+            }else {
+                AlertController.errormessage("Invalied Username");
+            }
+        }else {
+            AlertController.errormessage("Invalied Password");
+
+        }
+
+//maduranga
+        //Madu2002!
     }
 
     @FXML
@@ -64,13 +100,15 @@ public class PasswordChangeController {
         return userDto;
     }
 
-    public void backOnAction(ActionEvent event) throws IOException {
+
+    public void backOnAction(MouseEvent mouseEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/dashBord.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
     }
+
 }

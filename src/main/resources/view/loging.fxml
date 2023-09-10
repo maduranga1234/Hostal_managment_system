@@ -10,27 +10,27 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm_coursework.controller.LogingController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #05d0e7;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm_coursework.controller.LogingController">
    <children>
-      <TextField fx:id="userNameText" layoutX="193.0" layoutY="198.0" prefHeight="25.0" prefWidth="215.0" promptText="User Name" />
-      <Label layoutX="200.0" layoutY="14.0" prefHeight="49.0" prefWidth="215.0" text="Loging Form">
+      <TextField fx:id="userNameText" layoutX="193.0" layoutY="198.0" prefHeight="25.0" prefWidth="215.0" promptText="User Name" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <Label layoutX="200.0" layoutY="28.0" prefHeight="49.0" prefWidth="215.0" text="Loging Form">
          <font>
             <Font name="Bell MT Bold" size="34.0" />
          </font>
       </Label>
-      <Button layoutX="341.0" layoutY="284.0" mnemonicParsing="false" onAction="#logingOnAction" prefHeight="25.0" prefWidth="63.0" text="Loging">
+      <Button layoutX="330.0" layoutY="284.0" mnemonicParsing="false" onAction="#logingOnAction" prefHeight="25.0" prefWidth="74.0" style="-fx-background-radius: 7px; -fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Loging">
          <font>
             <Font name="Bodoni MT" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="193.0" layoutY="284.0" mnemonicParsing="false" onAction="#singUpOnAction" prefHeight="25.0" prefWidth="63.0" text="Sing Up">
+      <Button layoutX="191.0" layoutY="284.0" mnemonicParsing="false" onAction="#singUpOnAction" prefHeight="25.0" prefWidth="74.0" style="-fx-background-radius: 7px; -fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Sing Up">
          <font>
             <Font name="Bodoni MT" size="12.0" />
          </font>
       </Button>
       <Group fx:id="hideGroup" layoutX="193.0" layoutY="235.0">
          <children>
-            <PasswordField fx:id="passWordText" prefHeight="25.0" prefWidth="215.0" promptText="Password" />
+            <PasswordField fx:id="passWordText" prefHeight="25.0" prefWidth="215.0" promptText="Password" style="-fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
             <ImageView fitHeight="19.0" fitWidth="27.0" layoutX="192.0" layoutY="3.0" onMouseEntered="#hideEnted" onMouseExited="#hideExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assests/images/eyerHideIcon.png" />
@@ -48,5 +48,10 @@
             </ImageView>
          </children>
       </Group>
+      <ImageView fitHeight="80.0" fitWidth="83.0" layoutX="254.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/images/user.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

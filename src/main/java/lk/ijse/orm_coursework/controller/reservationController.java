@@ -18,12 +18,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.orm_coursework.bo.BoFactory;
 import lk.ijse.orm_coursework.bo.custom.ReservationBo;
 import lk.ijse.orm_coursework.controller.util.AlertController;
 import lk.ijse.orm_coursework.controller.util.ValidationController;
 import lk.ijse.orm_coursework.dto.ReservationDto;
+import lk.ijse.orm_coursework.dto.StudentDto;
+import lk.ijse.orm_coursework.entity.Student;
 import lk.ijse.orm_coursework.view.tdm.ReservationTm;
 import lk.ijse.orm_coursework.view.tdm.StudentTm;
 
@@ -68,6 +71,37 @@ public class reservationController implements Initializable {
     private TableView<ReservationTm> reservationTable;
 
     @FXML
+    private Label idLbl;
+
+    @FXML
+    private Label nameLbl;
+
+    @FXML
+    private Label addressLbl;
+
+    @FXML
+    private Label contactLbl;
+
+    @FXML
+    private Label BirthLbl;
+
+    @FXML
+    private Label genderLbl;
+
+    @FXML
+    private TextField searchFeald;
+
+    @FXML
+    private Label AvlRoomLbl;
+
+    @FXML
+    private TableColumn<?, ?> AvlRoomCol;
+
+
+    @FXML
+    private AnchorPane stDatailPane;
+
+    @FXML
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -80,7 +114,15 @@ public class reservationController implements Initializable {
         ReservationDto reservationDto = getReservation();
         reservationBo.deleteReservation(reservationDto);
 
+        resIdText.setText("");
+        StIdCombo.setValue(null);
+        roomIdCombo.setValue(null);
+        datePiker.setValue(null);
+        statusCombo.setValue(null);
         getAll();
+
+        AlertController.confirmmessage("Delete successFully");
+
 
     }
 
@@ -90,7 +132,6 @@ public class reservationController implements Initializable {
         if (ValidationController.reservationIdCheck(resIdText.getText())) {
 
             try {
-
 
                 ReservationDto reservationDto = getReservation();
                 reservationBo.saveReservation(reservationDto);
@@ -183,16 +224,7 @@ public class reservationController implements Initializable {
         return reservationDto;
     }
 
-    public void BackOnAction(ActionEvent event) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/dashBord.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
-
-    }
 
     private void getAll() {
 
@@ -231,8 +263,9 @@ public class reservationController implements Initializable {
         getAll();
         setCellValueFactory();
 
-        loadStIds();
+
         loadRoomTypeIds();
+        AvlRoomLbl.setVisible(false);
 
         statusCombo.getItems().addAll("PAID", "NOT PAID");
 
@@ -268,6 +301,58 @@ public class reservationController implements Initializable {
         }
         stage.centerOnScreen();
         stage.show();
+
+    }
+
+    public void searchClick(MouseEvent mouseEvent) {
+
+     StudentDto studentDto=reservationBo.getStudentDetail(searchFeald.getText());
+
+     idLbl.setText(studentDto.getId());
+     nameLbl.setText(studentDto.getName());
+     addressLbl.setText(studentDto.getAddress());
+     contactLbl.setText(studentDto.getContact());
+     BirthLbl.setText(String.valueOf(studentDto.getDob()));
+     genderLbl.setText(studentDto.getGender());
+
+     stDatailPane.setVisible(true);
+
+     searchFeald.setText("");
+    }
+
+    public void CloseOnAction(MouseEvent mouseEvent) {
+        stDatailPane.setVisible(false);
+    }
+
+    public void BackOnAction(MouseEvent mouseEvent) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/view/dashBord.fxml"));
+        stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+    }
+
+    public void studentOnMouseClick(MouseEvent mouseEvent) {
+
+        loadStIds();
+    }
+
+    public void roomVisibleAction(ActionEvent event) {
+
+
+
+        String roomId=roomIdCombo.getValue();
+        int count=reservationBo.getAvlRooms(roomId);
+
+        if(count!=-1) {
+            AvlRoomLbl.setVisible(true);
+            AvlRoomLbl.setText(String.valueOf(count));
+
+        }else {
+            AvlRoomLbl.setVisible(false);
+        }
 
     }
 }

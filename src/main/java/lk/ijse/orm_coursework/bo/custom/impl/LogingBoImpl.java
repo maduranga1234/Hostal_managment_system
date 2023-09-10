@@ -31,7 +31,6 @@ public class LogingBoImpl implements LogingBo {
         }catch (Exception e) {
             transaction.rollback();
             session.close();
-            e.printStackTrace();
             return null;
         }
 

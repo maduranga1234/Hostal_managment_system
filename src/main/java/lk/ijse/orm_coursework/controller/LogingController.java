@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lk.ijse.orm_coursework.bo.BoFactory;
 import lk.ijse.orm_coursework.bo.custom.LogingBo;
+import lk.ijse.orm_coursework.controller.util.AlertController;
+import lk.ijse.orm_coursework.controller.util.ValidationController;
 
 public class LogingController {
 
@@ -31,7 +34,6 @@ public class LogingController {
 
     @FXML
     private PasswordField passWordText;
-
 
 
     @FXML
@@ -51,65 +53,86 @@ public class LogingController {
     private Parent root;
 
 
-    LogingBo logingBo= BoFactory.getBoFactory().getBo(BoFactory.BoType.LOGING_BO);
+    LogingBo logingBo = BoFactory.getBoFactory().getBo(BoFactory.BoType.LOGING_BO);
 
     @FXML
     void logingOnAction(ActionEvent event) throws IOException, SQLException {
 
 
+        if (ValidationController.customerNameValidate(userNameText.getText())) {
+            if (ValidationController.Password(passWordText.getText())) {
 
-         String passWord= logingBo.searchUser(userNameText.getText());
+                String passWord = logingBo.searchUser(userNameText.getText());
 
-         if(passWord.equals(passWordText.getText())) {
+                if(passWord!=null) {
 
-             Parent root = FXMLLoader.load(getClass().getResource("/view/dashBord.fxml"));
-             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-             scene = new Scene(root);
-             stage.setScene(scene);
-             stage.centerOnScreen();
-             stage.show();
-         }
+                    if (passWord.equals(passWordText.getText())) {
 
-    }
+                        AlertController.confirmmessage("Loging Successful");
 
-    @FXML
-    void singUpOnAction(ActionEvent event) throws IOException {
+                        Parent root = FXMLLoader.load(getClass().getResource("/view/dashBord.fxml"));
+                        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.centerOnScreen();
+                        stage.show();
 
-        Parent root = FXMLLoader.load(getClass().getResource("/view/singUp.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.centerOnScreen();
-        stage.show();
+                    } else {
+                        AlertController.errormessage("This password does not match this Username");
+                    }
 
-    }
+                }else{
+                    AlertController.errormessage("This password does not Have Database");
+                }
 
-    @FXML
-    void initialize() {
-        assert userNameText != null : "fx:id=\"userNameText\" was not injected: check your FXML file 'loging.fxml'.";
-        assert passWordText != null : "fx:id=\"passWordText\" was not injected: check your FXML file 'loging.fxml'.";
+            }else {
+                AlertController.errormessage("Invalied Password");
+            }
+        }else {
+            AlertController.errormessage("Invalied Username");
 
-    }
+        }
+
+            }
+
+            @FXML
+            void singUpOnAction (ActionEvent event) throws IOException {
+
+                Parent root = FXMLLoader.load(getClass().getResource("/view/singUp.fxml"));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+                stage.show();
+
+            }
+
+            @FXML
+            void initialize () {
+                assert userNameText != null : "fx:id=\"userNameText\" was not injected: check your FXML file 'loging.fxml'.";
+                assert passWordText != null : "fx:id=\"passWordText\" was not injected: check your FXML file 'loging.fxml'.";
+
+            }
 
 
-    public void showEnterd(MouseEvent mouseEvent) {
-    }
+            public void showEnterd (MouseEvent mouseEvent){
+            }
 
-    public void hideEnted(MouseEvent mouseEvent) {
-        passWordShowFiled.setText(passWordText.getText());
-        showGroup.setVisible(true);
-        hideGroup.setVisible(false);
+            public void hideEnted (MouseEvent mouseEvent){
+                passWordShowFiled.setText(passWordText.getText());
+                showGroup.setVisible(true);
+                hideGroup.setVisible(false);
 
 
-    }
+            }
 
-    public void showExit(MouseEvent mouseEvent) {
+            public void showExit (MouseEvent mouseEvent){
 
-        hideGroup.setVisible(true);
-        showGroup.setVisible(false);
-    }
+                hideGroup.setVisible(true);
+                showGroup.setVisible(false);
+            }
 
-    public void hideExit(MouseEvent mouseEvent) {
+            public void hideExit (MouseEvent mouseEvent){
 
-    }
-}
+            }
+        }

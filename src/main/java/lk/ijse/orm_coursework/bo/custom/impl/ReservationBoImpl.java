@@ -3,15 +3,19 @@ package lk.ijse.orm_coursework.bo.custom.impl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.orm_coursework.bo.custom.ReservationBo;
+import lk.ijse.orm_coursework.bo.custom.StudentBo;
 import lk.ijse.orm_coursework.config.SessionFactoryConfig;
 import lk.ijse.orm_coursework.dao.DaoFactory;
 import lk.ijse.orm_coursework.dao.custom.QuaryDao;
 import lk.ijse.orm_coursework.dao.custom.ReservationDao;
 import lk.ijse.orm_coursework.dao.custom.RoomDao;
+import lk.ijse.orm_coursework.dao.custom.StudentDao;
 import lk.ijse.orm_coursework.dto.ReservationDto;
 import lk.ijse.orm_coursework.dto.RoomDto;
+import lk.ijse.orm_coursework.dto.StudentDto;
 import lk.ijse.orm_coursework.entity.Reservation;
 import lk.ijse.orm_coursework.entity.Room;
+import lk.ijse.orm_coursework.entity.Student;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -23,6 +27,7 @@ public class ReservationBoImpl implements ReservationBo {
     ReservationDao reservationDao = DaoFactory.getDaoFactory().getDao(DaoFactory.DaoType.RESERVATION);
     QuaryDao quaryDao = DaoFactory.getDaoFactory().getDao(DaoFactory.DaoType.QUARY);
     RoomDao roomDao = DaoFactory.getDaoFactory().getDao(DaoFactory.DaoType.ROOM);
+    StudentDao studentDao=DaoFactory.getDaoFactory().getDao(DaoFactory.DaoType.STUDENT);
 
 
     public void updateAvailableRooms(ReservationDto reservationDto) {
@@ -177,5 +182,58 @@ public class ReservationBoImpl implements ReservationBo {
 
     }
 
+    }
+
+    @Override
+    public StudentDto getStudentDetail(String studentId) {
+
+        Session session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try{
+        studentDao.setSession(session);
+        Student student=studentDao.getStudentDetail(studentId);
+        StudentDto studentDto=new StudentDto();
+
+        studentDto.setId(student.getId());
+        studentDto.setName(student.getName());
+        studentDto.setAddress(student.getAddress());
+        studentDto.setContact(student.getContact());
+        studentDto.setDob(student.getDob());
+        studentDto.setGender(student.getGender());
+
+        transaction.commit();
+        session.close();
+
+        return studentDto;
+
+
+
+    } catch (Exception e) {
+        transaction.rollback();
+        session.close();
+        System.out.println("getDetailsToTableView failed");
+        System.out.println(e);
+        return null;
+
+    }
+    }
+
+    @Override
+    public int getAvlRooms(String roomId) {
+        Session session = SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            roomDao.setSession(session);
+            int count = roomDao.getAvlRooms(roomId);
+            transaction.commit();
+            session.close();
+            return count;
+        } catch (Exception e) {
+            transaction.rollback();
+            session.close();
+            System.out.println(e);
+            return -1;
+        }
     }
 }

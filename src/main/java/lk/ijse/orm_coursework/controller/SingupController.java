@@ -12,9 +12,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lk.ijse.orm_coursework.bo.BoFactory;
 import lk.ijse.orm_coursework.bo.custom.SingUpBo;
+import lk.ijse.orm_coursework.controller.util.AlertController;
+import lk.ijse.orm_coursework.controller.util.ValidationController;
 import lk.ijse.orm_coursework.dto.UserDto;
 
 public class SingupController {
@@ -41,10 +44,30 @@ public class SingupController {
 
     public void SingUpOnAction(ActionEvent event) {
 
-        UserDto userDto=getUser();
-        singUpBo.saveUser(userDto);
 
-        System.out.println(passwordTxt.getText());
+
+        if(ValidationController.customerNameValidate(userNameTxt.getText())){
+        if(ValidationController.Password(passwordTxt.getText())) {
+
+            try {
+
+                UserDto userDto = getUser();
+                singUpBo.saveUser(userDto);
+
+                AlertController.confirmmessage("Singup Successful");
+                userNameTxt.setText("");
+                passwordTxt.setText("");
+            }catch (Exception e){
+                AlertController.errormessage("Invalied Username or Password");
+            }
+
+        }else {
+            AlertController.errormessage("Invalied Username");
+        }
+        }else {
+            AlertController.errormessage("Invalied Password");
+
+        }
 
     }
 
@@ -65,10 +88,10 @@ public class SingupController {
     }
 
 
-    public void backOnAction(ActionEvent event) throws IOException {
+    public void backOnAction(MouseEvent mouseEvent) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("/view/loging.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.centerOnScreen();

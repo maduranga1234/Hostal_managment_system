@@ -7,16 +7,18 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="441.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm_coursework.controller.reservationController">
+<AnchorPane prefHeight="455.0" prefWidth="612.0" style="-fx-background-color: #1dc4e0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.orm_coursework.controller.reservationController">
    <children>
-      <TextField fx:id="resIdText" layoutX="14.0" layoutY="92.0" prefHeight="25.0" prefWidth="167.0" promptText="Reservation Id" />
-      <ComboBox fx:id="StIdCombo" layoutX="251.0" layoutY="92.0" prefHeight="25.0" prefWidth="158.0" promptText="Student Id" />
-      <ComboBox fx:id="roomIdCombo" layoutX="428.0" layoutY="92.0" prefHeight="25.0" prefWidth="158.0" promptText="Room Id" />
-      <DatePicker fx:id="datePiker" layoutX="250.0" layoutY="148.0" prefHeight="25.0" prefWidth="158.0" promptText="Date" />
-      <TableView fx:id="reservationTable" layoutX="-1.0" layoutY="245.0" onMouseClicked="#ReservationOnMouseClick" prefHeight="158.0" prefWidth="600.0">
+      <TextField fx:id="resIdText" layoutX="17.0" layoutY="137.0" prefHeight="25.0" prefWidth="167.0" promptText="Reservation Id" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <ComboBox fx:id="StIdCombo" layoutX="271.0" layoutY="137.0" onMouseClicked="#studentOnMouseClick" prefHeight="25.0" prefWidth="158.0" promptText="Student Id" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <ComboBox fx:id="roomIdCombo" layoutX="448.0" layoutY="137.0" onAction="#roomVisibleAction" prefHeight="25.0" prefWidth="158.0" promptText="Room Id" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <DatePicker fx:id="datePiker" layoutX="270.0" layoutY="176.0" prefHeight="25.0" prefWidth="158.0" promptText="Date" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <TableView fx:id="reservationTable" layoutX="5.0" layoutY="257.0" onMouseClicked="#ReservationOnMouseClick" prefHeight="158.0" prefWidth="602.0">
         <columns>
           <TableColumn fx:id="reIdColum" prefWidth="116.0" text="Reservation Id" />
           <TableColumn fx:id="stIdColum" prefWidth="121.0" text="Student Id" />
@@ -25,16 +27,111 @@
             <TableColumn fx:id="statusColum" prefWidth="115.0" text="Status" />
         </columns>
       </TableView>
-      <ComboBox fx:id="statusCombo" layoutX="428.0" layoutY="148.0" prefHeight="25.0" prefWidth="158.0" promptText="Status" />
-      <Label layoutX="154.0" layoutY="14.0" prefHeight="44.0" prefWidth="338.0" text="Reservation Manegment Form">
+      <ComboBox fx:id="statusCombo" layoutX="448.0" layoutY="176.0" prefHeight="25.0" prefWidth="158.0" promptText="Status" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <Label layoutX="150.0" layoutY="15.0" prefHeight="44.0" prefWidth="338.0" text="Reservation Manegment Form" underline="true">
          <font>
             <Font name="Book Antiqua" size="24.0" />
          </font>
       </Label>
-      <Button layoutX="412.0" layoutY="210.0" mnemonicParsing="false" onAction="#SaveOnAction" prefHeight="0.0" prefWidth="52.0" text="Save" />
-      <Button layoutX="472.0" layoutY="210.0" mnemonicParsing="false" onAction="#UpdateOnAction" text="Update" />
-      <Button layoutX="538.0" layoutY="210.0" mnemonicParsing="false" onAction="#DeleteOnAction" text="Delete" />
-      <Button layoutX="4.0" layoutY="410.0" mnemonicParsing="false" onAction="#BackOnAction" prefHeight="25.0" prefWidth="51.0" text="Back" />
-      <Button layoutX="501.0" layoutY="36.0" mnemonicParsing="false" onAction="#NotPaidOnAction" prefHeight="25.0" prefWidth="81.0" text="Not Paid" />
+      <Button layoutX="396.0" layoutY="219.0" mnemonicParsing="false" onAction="#SaveOnAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: black; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 6px;" text="Save" textFill="#fcffff">
+         <font>
+            <Font name="Footlight MT Light" size="12.0" />
+         </font></Button>
+      <Button layoutX="470.0" layoutY="219.0" mnemonicParsing="false" onAction="#UpdateOnAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: black; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 6px;" text="Update" textFill="#fcffff">
+         <font>
+            <Font name="Footlight MT Light" size="12.0" />
+         </font></Button>
+      <Button layoutX="542.0" layoutY="219.0" mnemonicParsing="false" onAction="#DeleteOnAction" prefHeight="25.0" prefWidth="64.0" style="-fx-background-color: black; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 6px;" text="Delete" textFill="#fcffff">
+         <font>
+            <Font name="Footlight MT Light" size="12.0" />
+         </font></Button>
+      <Button layoutX="514.0" layoutY="422.0" mnemonicParsing="false" onAction="#NotPaidOnAction" prefHeight="25.0" prefWidth="88.0" style="-fx-background-color: red; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;" text="Not Paid" textFill="WHITE" />
+      <TextField fx:id="searchFeald" layoutX="448.0" layoutY="59.0" prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" />
+      <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="582.0" layoutY="59.0" onMouseClicked="#searchClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/images/iconsSearch.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="stDatailPane" layoutX="119.0" layoutY="68.0" prefHeight="325.0" prefWidth="472.0" style="-fx-background-color: #1B77C9FF;" styleClass="ba" visible="false">
+         <children>
+            <Label fx:id="idLbl" layoutX="178.0" layoutY="91.0" prefHeight="25.0" prefWidth="238.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;">
+               <font>
+                  <Font name="Bodoni MT" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameLbl" layoutX="178.0" layoutY="123.0" prefHeight="24.0" prefWidth="238.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;">
+               <font>
+                  <Font name="Bodoni MT" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="addressLbl" layoutX="177.0" layoutY="155.0" prefHeight="24.0" prefWidth="238.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;">
+               <font>
+                  <Font name="Bodoni MT" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="contactLbl" layoutX="178.0" layoutY="188.0" prefHeight="24.0" prefWidth="238.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;">
+               <font>
+                  <Font name="Bodoni MT" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="BirthLbl" layoutX="179.0" layoutY="221.0" prefHeight="24.0" prefWidth="238.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;">
+               <font>
+                  <Font name="Bodoni MT" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="genderLbl" layoutX="178.0" layoutY="255.0" prefHeight="24.0" prefWidth="238.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;">
+               <font>
+                  <Font name="Bodoni MT" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="41.0" layoutY="90.0" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;" text="   Student Id">
+               <font>
+                  <Font name="Franklin Gothic Heavy" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="41.0" layoutY="123.0" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;" text="   Student Name">
+               <font>
+                  <Font name="Franklin Gothic Heavy" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="41.0" layoutY="155.0" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;" text="   Address">
+               <font>
+                  <Font name="Franklin Gothic Heavy" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="188.0" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;" text="   Contact Number">
+               <font>
+                  <Font name="Franklin Gothic Heavy" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="221.0" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;" text="   Date Of Birth">
+               <font>
+                  <Font name="Franklin Gothic Heavy" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="255.0" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 8px;" text="   Gender">
+               <font>
+                  <Font name="Franklin Gothic Heavy" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="idLbl1" layoutX="97.0" layoutY="16.0" prefHeight="44.0" prefWidth="297.0" text="Not Paid Student Detail" underline="true">
+               <font>
+                  <Font name="Franklin Gothic Heavy" size="21.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="33.0" fitWidth="32.0" layoutX="440.0" layoutY="1.0" onMouseClicked="#CloseOnAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assests/images/close.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="579.0" layoutY="2.0" onMouseClicked="#BackOnAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assests/images/close.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="450.0" layoutY="107.0" prefHeight="24.0" prefWidth="103.0" text="Available Rooms :" />
+      <Label fx:id="AvlRoomLbl" layoutX="545.0" layoutY="103.0" prefHeight="32.0" prefWidth="54.0" visible="false" />
    </children>
 </AnchorPane>

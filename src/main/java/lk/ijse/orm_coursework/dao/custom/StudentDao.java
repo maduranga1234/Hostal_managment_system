@@ -9,5 +9,6 @@ import java.util.List;
 public interface StudentDao extends CrudDao<Student,String> {
     void setSession(Session session);
     public List<Student> getDetailsToTableView();
+    public Student getStudentDetail(String studentId);
 
 }
